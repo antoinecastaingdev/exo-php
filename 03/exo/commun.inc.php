@@ -1,3 +1,4 @@
 <?php
-const NOM_SITE = "monSite.com";
-$auteurs = ['Victor Hugo', 'Charles Baudelaire', 'Arthur Rimbaud', 'Paul Verlaine'];
+const SITE_NAME = "monSite.com";
+$authors = ['Victor Hugo', 'Charles Baudelaire', 'Arthur Rimbaud', 'Paul Verlaine'];
+asort($authors);
