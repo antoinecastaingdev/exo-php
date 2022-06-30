@@ -8,9 +8,6 @@ require_once 'commun.inc.php';
 // Déclaration des fonctions
 function renderBody(array $variables = []) : void {
     echo "<p>Bonjour " . $variables['username'] . "</p>";
-    echo "<p>Bienvenue sur " . $variables['website_name'] . "</p>";
-    echo "<p>Nous sommes le " . $variables['date'] . "</p>";
-    echo "<p>Votre nom comporte " . strlen($variables['username']) . " lettres</p>";
     echo "<p>Votre nom comporte " . preg_match_all("/[AEIOUYaeiouy]/", $variables['username']) . " voyelles</p>";
     echo "<p>Votre nom commence par une " . $variables['user_first_letter_type'] . "</p>";
 }
@@ -34,6 +31,7 @@ $date = date('l d F Y');
 $renderTbody = "";
 $randomAuthor = $authors[rand(0, count($authors) - 1)];
 $myFavoriteAuthor = formatFirstnameLastname($randomAuthor);
+$multidimensionAuthors = [];
 
 $variables = [
     "username" => $userName,
@@ -47,23 +45,22 @@ $variables = [
 
 
 // Fin des initialisations
-$multidimensionAuthor = [];
 foreach ($authors as $key => $author) {
 	$authorArray = explode(" ", $author);
-	$multidimensionAuthor[] = [
+	$multidimensionAuthors[] = [
 		"nom" => $authorArray[1],
 		"prenom" => $authorArray[0],
 	];
 }
 
 array_multisort(
-	$multidimensionAuthor,
-	array_column($multidimensionAuthor, "nom"),
-	array_column($multidimensionAuthor, "prenom")
+	$multidimensionAuthors,
+	array_column($multidimensionAuthors, "nom"),
+	array_column($multidimensionAuthors, "prenom")
 );
 
-foreach ($multidimensionAuthor as $key => $auteur_multidimentionnel) {
-	$renderTbody .= "<tr><td>" . $auteur_multidimentionnel["nom"] . " (" . $auteur_multidimentionnel["prenom"] . ")</td></tr>";
+foreach ($multidimensionAuthors as $key => $multidimensionAuthor) {
+	$renderTbody .= "<tr><td>" . $multidimensionAuthor["nom"] . " (" . $multidimensionAuthor["prenom"] . ")</td></tr>";
 }
 
 ?>
